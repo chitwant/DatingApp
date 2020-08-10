@@ -202,6 +202,18 @@ class Api extends REST_Controller
 	 */
 	public function send_email($email, $new_password)
 	{
+
+		$config = [
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'esetnod32av.008@gmail.com',
+            'smtp_pass' => 'websoftq',
+            'mailtype' => 'html',
+            'charset' => 'iso-8859-1',
+            'wordwrap' => TRUE
+        ];
+
 		$to = $email;
 		$subject = 'New password generated';
 
@@ -214,7 +226,8 @@ class Api extends REST_Controller
 						</body>
 					</html>';
 
-		$this->email->clear();
+		// $this->email->clear();
+		$this->email->initialize($config);
 		$this->email->set_newline("\r\n");
 
 		$this->email->to($to);
